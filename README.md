@@ -29,8 +29,10 @@ Sitio web oficial de la Comunidad Scout-Guía San Pablo — Ramos Mejía, Buenos
 /guias/uniforme          Uniforme guía
 /guias/promesa-y-ley     Promesa y Ley guía
 /guias/formularios       Formularios PDF guía
-/guias/adultos           Adultos (Comité + Voluntarios)
-/guias/inscripciones     Formulario de inscripción
+
+/adultos           Adultos (Comité + Voluntarios)
+
+/inscripciones     Formulario de inscripción
 ```
 
 ## Instalación
