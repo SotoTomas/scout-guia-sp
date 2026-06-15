@@ -1,0 +1,189 @@
+/* ===== VARIABLES GLOBALES ===== */
+:root {
+  /* Comunidad */
+  --color-bg:            #0f0e1a;
+  --color-bg-alt:        #16152a;
+  --color-surface:       #1e1d35;
+  --color-surface-alt:   #252440;
+  --color-white:         #f0ebe0;
+  --color-white-dim:     #c8c0b0;
+  --color-accent-gold:   #e8c547;
+  --color-accent-gold-dim: #b8962a;
+
+  /* Scouts de Argentina */
+  --color-scout-primary:   #1b4d8e;
+  --color-scout-light:     #2a6cc4;
+  --color-scout-green:     #2e7d32;
+  --color-scout-yellow:    #fbc02d;
+
+  /* Guías Argentinas */
+  --color-guia-primary:    #6a1b9a;
+  --color-guia-light:      #9c27b0;
+  --color-guia-rose:       #c2185b;
+  --color-guia-accent:     #f48fb1;
+
+  /* Ramas Scouts */
+  --rama-manada:     #fbc02d;
+  --rama-unidad:     #2e7d32;
+  --rama-caminante:  #c62828;
+  --rama-rover:      #1b4d8e;
+
+  /* Ramas Guías */
+  --rama-pimpollitos: #e91e63;
+  --rama-alitas:      #03a9f4;
+  --rama-caravanas:   #ff6f00;
+  --rama-sol:         #f9a825;
+  --rama-mayores:     #6a1b9a;
+
+  /* Tipografía */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Espaciado */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  2rem;
+  --space-xl:  4rem;
+  --space-2xl: 8rem;
+
+  /* Radios */
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+
+  /* Transiciones */
+  --transition-fast:   150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow:   600ms ease;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ===== UTILIDADES ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.section {
+  padding: var(--space-2xl) 0;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: var(--color-white-dim);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===== TEMAS POR SECCIÓN ===== */
+.theme-scout {
+  --color-accent: var(--color-scout-primary);
+  --color-accent-light: var(--color-scout-light);
+}
+
+.theme-guia {
+  --color-accent: var(--color-guia-primary);
+  --color-accent-light: var(--color-guia-light);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-surface-alt); border-radius: 3px; }
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scoutWave {
+  0%, 100% { transform: rotate(-3deg); }
+  50%       { transform: rotate(3deg); }
+}
+
+.fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+/* ===== PAGE TRANSITIONS ===== */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
