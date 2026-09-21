@@ -3,9 +3,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) return savedPosition
-    if (to.hash) return { el: to.hash, behavior: 'smooth' }
-    return { top: 0, behavior: 'smooth' }
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const behavior = reducedMotion ? 'auto' : 'smooth'
+    const position = savedPosition || (to.hash ? { el: to.hash, behavior } : { top: 0, behavior })
+
+    // App uses an out-in route transition; wait for the destination view to
+    // mount before resolving an anchor or restoring a saved scroll position.
+    return new Promise(resolve => window.setTimeout(() => resolve(position), 300))
   },
   routes: [
     // ── COMUNIDAD ──────────────────────────────────────────
@@ -21,8 +25,7 @@ const router = createRouter({
       meta: { theme: 'community', title: 'Nosotros' },
       children: [
         { path: '', name: 'nosotros', redirect: '/nosotros/historia' },
-        { path: 'historia',     name: 'historia',     component: () => import('@/views/nosotros/HistoriaView.vue') },
-        { path: 'hall-of-fame', name: 'hall-of-fame', component: () => import('@/views/nosotros/HallOfFameView.vue') }
+        { path: 'historia', name: 'historia', component: () => import('@/views/nosotros/HistoriaView.vue') }
       ]
     },
 
@@ -56,9 +59,15 @@ const router = createRouter({
         
       ]
     },
-    // ── INSCRIPCIONES ─────────────────────────────────────
-        { path: '/adultos',        name: 'adultos',          component: () => import('@/views/AdultosView.vue'),          meta: { title: 'Adultos' } },
-        { path: '/inscripciones',  name: 'inscripciones',    component: () => import('@/views/InscripcionesView.vue'),    meta: { title: 'Inscripciones' } },
+    // ── ADULTOS Y PREINSCRIPCIÓN ──────────────────────────
+        { path: '/adultos', name: 'adultos', component: () => import('@/views/AdultosView.vue'), meta: { title: 'Adultos' } },
+        {
+          path: '/inscripciones',
+          beforeEnter: () => {
+            window.location.assign('https://www.gruposanpablo.com.ar/preinscripcion')
+            return false
+          }
+        },
   
     // ── 404 ────────────────────────────────────────────────
     {

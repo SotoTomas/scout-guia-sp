@@ -1,15 +1,17 @@
 <template>
-  <div style="padding-top: 80px;">
+  <div class="movement-page">
     <section class="section">
       <div class="container">
-        <span class="tag" style="background:rgba(27,77,142,0.3);color:var(--color-scout-yellow);margin-bottom:16px;">Scouts de Argentina</span>
-        <h1 class="section-title">Promesa <em style="font-style:italic;color:var(--color-scout-yellow)">y Ley</em></h1>
-        <p class="section-subtitle" style="margin-top:16px;margin-bottom:4rem;">Los valores que guían nuestra vida scout, desde el primer día hasta siempre.</p>
+        <header class="movement-intro">
+          <span class="tag">Scouts de Argentina</span>
+          <h1 class="section-title">Promesa <em>y Ley</em></h1>
+          <p class="section-subtitle">Los valores que guían nuestra vida scout, desde el primer día hasta siempre.</p>
+        </header>
 
         <div class="promesa-layout">
-          <div class="promesa-card">
+          <div class="promesa-card" v-reveal>
             <div class="promesa-card__header">
-              <span class="promesa-card__icon">⚜️</span>
+              <span class="promesa-card__icon" aria-hidden="true">⚜️</span>
               <h2>La Promesa Scout</h2>
             </div>
             <div class="promesa-card__text">
@@ -22,9 +24,9 @@
             </div>
           </div>
 
-          <div class="ley-card">
+          <div class="ley-card" v-reveal>
             <div class="ley-card__header">
-              <span class="ley-card__icon">📜</span>
+              <span class="ley-card__icon" aria-hidden="true">📜</span>
               <h2>La Ley Scout</h2>
             </div>
             <ol class="ley-list">
@@ -36,7 +38,7 @@
           </div>
         </div>
 
-        <div class="lema-section">
+        <div class="lema-section" v-reveal>
           <div class="lema-card">
             <span class="lema-label">El Lema Scout</span>
             <h2 class="lema-text">"Siempre Listos"</h2>
@@ -62,122 +64,3 @@ const ley = [
   'El Scout es puro en sus pensamientos, palabras y acciones.',
 ]
 </script>
-
-<style scoped>
-.promesa-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.promesa-card, .ley-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-xl);
-  padding: 40px;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.promesa-card__header, .ley-card__header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
-.promesa-card__icon, .ley-card__icon { font-size: 2rem; }
-
-.promesa-card__header h2, .ley-card__header h2 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-scout-yellow);
-}
-
-.promesa-text {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-style: italic;
-  line-height: 1.8;
-  color: var(--color-white);
-  border-left: 3px solid var(--color-scout-yellow);
-  padding-left: 20px;
-  margin-bottom: 24px;
-}
-
-.promesa-card__context p {
-  font-size: 0.9rem;
-  color: var(--color-white-dim);
-  line-height: 1.7;
-}
-
-.ley-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.ley-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  font-size: 0.9rem;
-  color: var(--color-white-dim);
-  line-height: 1.5;
-}
-
-.ley-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(251,192,45,0.15);
-  color: var(--color-scout-yellow);
-  font-size: 0.75rem;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.lema-section { margin-top: 2rem; }
-
-.lema-card {
-  text-align: center;
-  padding: 60px 40px;
-  background: linear-gradient(135deg, rgba(27,77,142,0.3), rgba(27,77,142,0.1));
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(27,77,142,0.4);
-}
-
-.lema-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-scout-yellow);
-  margin-bottom: 12px;
-}
-
-.lema-text {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 900;
-  color: var(--color-white);
-  margin-bottom: 16px;
-}
-
-.lema-card p {
-  font-size: 1rem;
-  color: var(--color-white-dim);
-  max-width: 480px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-@media (max-width: 768px) {
-  .promesa-layout { grid-template-columns: 1fr; }
-}
-</style>

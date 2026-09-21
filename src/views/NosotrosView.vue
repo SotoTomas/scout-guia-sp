@@ -1,41 +1,35 @@
 <template>
   <div class="nosotros">
-    <div class="nosotros__subnav">
+    <nav class="nosotros__subnav" aria-label="Sobre la comunidad">
       <div class="container">
+        <span class="nosotros__label">Nuestra comunidad</span>
         <RouterLink to="/nosotros/historia" class="subnav-link">Historia</RouterLink>
-        <RouterLink to="/nosotros/hall-of-fame" class="subnav-link">Miembros Históricos</RouterLink>
       </div>
-    </div>
-    <RouterView />
+    </nav>
+    <RouterView v-slot="{ Component }">
+      <Transition name="community-view" mode="out-in">
+        <component :is="Component" />
+      </Transition>
+    </RouterView>
   </div>
 </template>
 
 <style scoped>
-.nosotros__subnav {
-  position: sticky;
-  top: 72px;
-  z-index: 50;
-  background: rgba(15,14,26,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+.nosotros { padding-top: var(--header-height, 80px); }
+.nosotros__subnav { position: sticky; top: var(--header-height, 80px); z-index: 30; background: rgb(247 245 239 / 96%); border-bottom: 1px solid var(--color-border); }
+.nosotros__subnav .container { display: flex; gap: .5rem; align-items: center; padding-block: .8rem; }
+.nosotros__label { margin-right: auto; color: var(--color-text-muted); text-transform: uppercase; font-size: .65rem; font-weight: 700; letter-spacing: .13em; }
+.subnav-link { padding: .55rem 1rem; border-radius: 999px; font-size: .82rem; font-weight: 600; color: var(--color-text-muted); transition: color 180ms var(--ease-out), background-color 180ms var(--ease-out); }
+.subnav-link:hover, .subnav-link.router-link-active { color: var(--color-primary); background: var(--color-primary-light); }
+.community-view-enter-active, .community-view-leave-active { transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out); }
+.community-view-enter-from, .community-view-leave-to { opacity: 0; transform: translateY(6px); }
+@media (max-width: 600px) {
+  .nosotros__label { display: none; }
+  .nosotros__subnav .container { justify-content: center; }
+  .subnav-link { padding-inline: .9rem; }
 }
-
-.nosotros__subnav .container {
-  display: flex;
-  gap: 4px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+@media (prefers-reduced-motion: reduce) {
+  .community-view-enter-active, .community-view-leave-active { transition: none; }
+  .community-view-enter-from, .community-view-leave-to { transform: none; }
 }
-
-.subnav-link {
-  padding: 8px 18px;
-  border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-white-dim);
-  transition: all var(--transition-fast);
-}
-
-.subnav-link:hover { color: var(--color-white); background: rgba(255,255,255,0.06); }
-.subnav-link.router-link-active { color: var(--color-accent-gold); background: rgba(232,197,71,0.1); }
 </style>

@@ -1,40 +1,55 @@
 <template>
-  <div class="guias-home" style="padding-top: 80px;">
+  <div class="movement-page">
     <section class="section">
       <div class="container">
-        <div class="guias-hero">
-          <div class="guias-hero__bg">
-            <div class="guias-hero__orb"></div>
-          </div>
-          <div class="guias-hero__content">
-            <span class="tag guias-tag">Asociación Guías Argentinas</span>
-            <h1 class="section-title guias-title">
-              Listas<br><em>para servir</em>
-            </h1>
-            <p class="section-subtitle">El movimiento guía forma líderes comprometidas con sus valores, su comunidad y el mundo. En San Pablo, somos parte de una comunidad que trasciende generaciones.</p>
-            <div class="guias-hero__actions">
-              <RouterLink to="/guias/ramas" class="btn-guia">Ver Ramas →</RouterLink>
-              <RouterLink to="/guias/inscripciones" class="btn-guia-ghost">Inscribirse</RouterLink>
-            </div>
-          </div>
-        </div>
+        <MovementHero
+          label="Asociación Guías Argentinas"
+          title="Listas" emphasis="para servir"
+          :description="description" :logo="movementLogo"
+          base-path="/guias" movement-name="Movimiento Guía"
+        />
 
-        <div class="guias-ramas-preview">
-          <h2 class="section-title" style="margin-bottom: 2rem;">Nuestras Ramas</h2>
+        <div class="movement-section" v-reveal>
+          <div class="movement-section__heading">
+            <div>
+              <span class="eyebrow">Un camino para cada etapa</span>
+              <h2 class="section-title">Nuestras ramas</h2>
+            </div>
+            <RouterLink to="/guias/ramas" class="movement-text-link">Explorar las ramas <span aria-hidden="true">↗</span></RouterLink>
+          </div>
           <div class="ramas-grid">
             <BranchCard v-for="rama in GUIA_RAMAS" :key="rama.id" :rama="rama" base-path="/guias/ramas" />
           </div>
         </div>
 
-        <div class="guias-valores">
-          <h2 class="section-title" style="margin-bottom: 2rem;">Valores Guía</h2>
+        <div class="movement-section" v-reveal>
+          <div class="movement-section__heading">
+            <div>
+              <span class="eyebrow">Lo que nos mueve</span>
+              <h2 class="section-title">Valores Guía</h2>
+            </div>
+          </div>
           <div class="valores-grid">
             <div v-for="v in valores" :key="v.titulo" class="valor-card">
-              <span class="valor-card__icon">{{ v.emoji }}</span>
+              <span class="valor-card__icon" aria-hidden="true">{{ v.emoji }}</span>
               <h3 class="valor-card__title">{{ v.titulo }}</h3>
               <p class="valor-card__text">{{ v.texto }}</p>
             </div>
           </div>
+        </div>
+
+        <!-- Ley Guía -->
+        <div class="movement-section movement-ley" v-reveal>
+          <div class="movement-section__heading">
+            <h2 class="section-title">La Ley Guía</h2>
+          </div>
+          <p class="section-subtitle">Diez puntos que resumen los valores que una guía intenta vivir día a día, no solo los sábados.</p>
+          <ol class="ley-list">
+            <li v-for="(item, i) in leyGuia" :key="i">
+              <span class="ley-list__num">{{ i + 1 }}</span>
+              <span>{{ item }}</span>
+            </li>
+          </ol>
         </div>
       </div>
     </section>
@@ -42,126 +57,30 @@
 </template>
 
 <script setup>
+import MovementHero from '@/components/shared/MovementHero.vue'
+import movementLogo from '@/assets/brand/guides.webp'
 import BranchCard from '@/components/shared/BranchCard.vue'
 import { GUIA_RAMAS } from '@/stores/appStore.js'
 
 const valores = [
-  { emoji: '💜', titulo: 'Sororidad', texto: 'Construir vínculos fuertes y solidarios entre todas las integrantes.' },
-  { emoji: '🌎', titulo: 'Compromiso', texto: 'Asumir responsabilidad con la comunidad y el medioambiente.' },
-  { emoji: '🕊️', titulo: 'Paz', texto: 'Promover el entendimiento, el diálogo y la no violencia.' },
-  { emoji: '🌿', titulo: 'Respeto', texto: 'Por la naturaleza, las personas y las diferencias.' },
+  { emoji: '💜', titulo: 'Sororidad', texto: 'Se respeta a sí misma y valora la diversidad, construyendo vínculos solidarios entre todas.' },
+  { emoji: '🌎', titulo: 'Compromiso', texto: 'Reflexiva, crítica y responsable: así vive su compromiso con la comunidad y el ambiente.' },
+  { emoji: '🕊️', titulo: 'Paz', texto: 'Es amable y atenta, promoviendo el diálogo y la no violencia en su entorno.' },
+  { emoji: '🌿', titulo: 'Respeto', texto: 'Se reconoce parte de la naturaleza y hace uso consciente y sostenible de los recursos.' },
 ]
+
+const leyGuia = [
+  'Es honesta y confiable.',
+  'Es reflexiva, crítica y responsable.',
+  'Es solidaria y se involucra en su entorno.',
+  'Se respeta a sí misma y valora la diversidad.',
+  'Es amable y atenta.',
+  'Se reconoce como parte de la naturaleza y protege el ambiente.',
+  'Es activa y busca superarse a sí misma.',
+  'Es optimista y enfrenta las dificultades con serenidad.',
+  'Hace uso consciente y sostenible de todos los recursos.',
+  'Es auténtica y actúa de acuerdo a sus valores y creencias.',
+]
+
+const description = "El Guidismo nació en 1909, cuando un grupo de chicas exigió ser parte de un encuentro scout en Crystal Palace; Baden-Powell las llamó \"Guías\" y, para 1910, su hermana Agnes adaptó \"Scouting for Boys\" para ellas. En Argentina, la Asociación Guías Argentinas se fundó el 7 de octubre de 1953 por iniciativa de Nair Fernández Blanco de Gowland — por eso el 15 de abril celebramos el Día de la Guiadora. En San Pablo somos parte de la AGA desde nuestros orígenes."
 </script>
-
-<style scoped>
-.guias-hero {
-  position: relative;
-  margin-bottom: 6rem;
-  padding: 3rem 0;
-}
-
-.guias-hero__bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-}
-
-.guias-hero__orb {
-  position: absolute;
-  width: 500px; height: 500px;
-  background: var(--color-guia-primary);
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.12;
-  right: -100px; top: -100px;
-}
-
-.guias-hero__content {
-  position: relative;
-  z-index: 1;
-  max-width: 600px;
-}
-
-.guias-tag {
-  background: rgba(106,27,154,0.3);
-  color: var(--color-guia-accent);
-  margin-bottom: 16px;
-}
-
-.guias-title { margin-bottom: 20px; }
-.guias-title em { font-style: italic; color: var(--color-guia-accent); }
-
-.guias-hero__actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.btn-guia {
-  padding: 12px 28px;
-  background: var(--color-guia-primary);
-  color: var(--color-white);
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  transition: background var(--transition-fast);
-}
-
-.btn-guia:hover { background: var(--color-guia-light); }
-
-.btn-guia-ghost {
-  padding: 12px 28px;
-  border: 1px solid rgba(106,27,154,0.5);
-  color: var(--color-guia-accent);
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  transition: background var(--transition-fast);
-}
-
-.btn-guia-ghost:hover { background: rgba(106,27,154,0.2); }
-
-.guias-ramas-preview { margin-bottom: 6rem; }
-
-.ramas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.guias-valores { margin-bottom: 4rem; }
-
-.valores-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.valor-card {
-  padding: 28px 24px;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: transform var(--transition-fast);
-}
-
-.valor-card:hover { transform: translateY(-3px); }
-.valor-card__icon { font-size: 2rem; display: block; margin-bottom: 12px; }
-
-.valor-card__title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.valor-card__text { font-size: 0.875rem; color: var(--color-white-dim); line-height: 1.6; }
-
-@media (max-width: 900px) {
-  .valores-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 600px) {
-  .valores-grid { grid-template-columns: 1fr; }
-  .ramas-grid { grid-template-columns: 1fr; }
-}
-</style>

@@ -91,7 +91,6 @@ scout-guia-sp/
 /                          → HomeView (Comunidad)
 /nosotros                  → NosotrosView
   /nosotros/historia       → Historia + Hitos + Galería
-  /nosotros/hall-of-fame   → Miembros Históricos
 
 /scouts                    → ScoutsHomeView
   /scouts/ramas            → ScoutsRamasView (grid)
@@ -107,7 +106,6 @@ scout-guia-sp/
   /guias/promesa-y-ley     → GuiasPromesaView
   /guias/formularios       → GuiasFormulariosView
   /guias/adultos           → AdultosView
-  /guias/inscripciones     → InscripcionesView
 ```
 
 ---

@@ -1,7 +1,8 @@
 <template>
   <div :class="['app-root', appStore.themeClass]">
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
     <AppHeader />
-    <main>
+    <main id="main-content" tabindex="-1">
       <RouterView v-slot="{ Component }">
         <Transition name="page" mode="out-in">
           <component :is="Component" />
@@ -24,7 +25,7 @@ const appStore = useAppStore()
 
 watch(
   () => route.meta?.theme,
-  (theme) => { if (theme) appStore.setTheme(theme) },
+  (theme) => appStore.setTheme(theme || 'community'),
   { immediate: true }
 )
 </script>

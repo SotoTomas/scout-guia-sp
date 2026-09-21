@@ -14,7 +14,6 @@ Sitio web oficial de la Comunidad Scout-Guía San Pablo — Ramos Mejía, Buenos
 ```
 /                        Inicio comunidad
 /nosotros/historia       Historia, hitos y galería
-/nosotros/hall-of-fame   Miembros históricos
 
 /scouts                  Inicio Scouts
 /scouts/ramas            Grid de ramas
@@ -29,10 +28,9 @@ Sitio web oficial de la Comunidad Scout-Guía San Pablo — Ramos Mejía, Buenos
 /guias/uniforme          Uniforme guía
 /guias/promesa-y-ley     Promesa y Ley guía
 /guias/formularios       Formularios PDF guía
-
 /adultos           Adultos (Comité + Voluntarios)
 
-/inscripciones     Formulario de inscripción
+/inscripciones     Redirección a preinscripción
 ```
 
 ## Instalación

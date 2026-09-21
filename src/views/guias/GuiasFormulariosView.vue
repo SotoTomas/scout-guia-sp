@@ -1,15 +1,17 @@
 <template>
-  <div style="padding-top: 80px;">
+  <div class="movement-page">
     <section class="section">
       <div class="container">
-        <span class="tag" style="background:rgba(106,27,154,0.3);color:var(--color-guia-accent);margin-bottom:16px;">Guías Argentinas</span>
-        <h1 class="section-title">Formularios <em style="font-style:italic;color:var(--color-guia-accent)">Guía</em></h1>
-        <p class="section-subtitle" style="margin-top:16px;margin-bottom:3rem;">Todo lo que necesitás para inscribirte y participar en las actividades del grupo.</p>
+        <header class="movement-intro">
+          <span class="tag">Guías Argentinas</span>
+          <h1 class="section-title">Formularios <em>Guía</em></h1>
+          <p class="section-subtitle">Todo lo que necesitás para inscribirte y participar en las actividades del grupo.</p>
+        </header>
 
         <div class="formularios-grid">
-          <div v-for="form in formularios" :key="form.id" class="form-card">
+          <div v-for="form in formularios" :key="form.id" class="form-card" v-reveal>
             <div class="form-card__icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <polyline points="14,2 14,8 20,8"/>
                 <line x1="16" y1="13" x2="8" y2="13"/>
@@ -21,20 +23,13 @@
               <p>{{ form.descripcion }}</p>
               <span class="form-card__type">PDF</span>
             </div>
-            <a :href="form.url" class="form-card__download" download>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-              Descargar
-            </a>
+            <FormDownload :url="form.url" :name="form.nombre" label="Descargar" />
           </div>
         </div>
 
         <div class="formularios-nota">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <p>¿Dudas? <a href="/#contacto">Escribinos</a> y te ayudamos a completar la documentación.</p>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>¿Dudas? <RouterLink to="/#contacto">Escribinos</RouterLink> y te ayudamos a completar la documentación.</p>
         </div>
       </div>
     </section>
@@ -42,6 +37,8 @@
 </template>
 
 <script setup>
+import FormDownload from '@/components/shared/FormDownload.vue'
+
 const formularios = [
   { id: 1, nombre: 'Ficha de Inscripción Guía', descripcion: 'Formulario de ingreso para nuevas integrantes del movimiento guía.', url: '/pdfs/guias-inscripcion.pdf' },
   { id: 2, nombre: 'Autorización de Actividades', descripcion: 'Autorización anual para participar en actividades del grupo.', url: '/pdfs/guias-autorizacion.pdf' },
@@ -50,88 +47,3 @@ const formularios = [
   { id: 5, nombre: 'Autorización de Imagen', descripcion: 'Consentimiento para uso de fotos y videos en comunicaciones del grupo.', url: '/pdfs/guias-imagen.pdf' },
 ]
 </script>
-
-<style scoped>
-.formularios-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 2rem;
-}
-
-.form-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 24px 28px;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: border-color var(--transition-fast);
-}
-
-.form-card:hover { border-color: rgba(106,27,154,0.4); }
-
-.form-card__icon {
-  width: 52px; height: 52px;
-  border-radius: var(--radius-md);
-  background: rgba(106,27,154,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-guia-accent);
-  flex-shrink: 0;
-}
-
-.form-card__info { flex: 1; }
-.form-card__info h3 { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
-.form-card__info p { font-size: 0.875rem; color: var(--color-white-dim); line-height: 1.5; margin-bottom: 6px; }
-
-.form-card__type {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  background: rgba(106,27,154,0.2);
-  color: var(--color-guia-accent);
-  border-radius: 4px;
-}
-
-.form-card__download {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--color-guia-primary);
-  color: var(--color-white);
-  border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: background var(--transition-fast);
-  flex-shrink: 0;
-}
-
-.form-card__download:hover { background: var(--color-guia-light); }
-
-.formularios-nota {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 20px;
-  background: rgba(255,255,255,0.03);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255,255,255,0.06);
-  color: var(--color-white-dim);
-  font-size: 0.875rem;
-}
-
-.formularios-nota a { color: var(--color-guia-accent); font-weight: 600; }
-.formularios-nota svg { flex-shrink: 0; margin-top: 2px; }
-
-@media (max-width: 600px) {
-  .form-card { flex-wrap: wrap; }
-  .form-card__download { width: 100%; justify-content: center; }
-}
-</style>

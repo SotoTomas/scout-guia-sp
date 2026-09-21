@@ -1,73 +1,67 @@
 <template>
-  <div style="padding-top: 80px;">
+  <div class="adultos">
     <section class="section">
       <div class="container">
-        <span class="tag" style="background:rgba(232,197,71,0.1);color:var(--color-accent-gold);margin-bottom:16px;">Adultos en el Movimiento</span>
-        <h1 class="section-title">Adultos que <em style="font-style:italic;color:var(--color-accent-gold)">hacen posible</em> todo</h1>
-        <p class="section-subtitle" style="margin-top:16px;margin-bottom:4rem;">Sin los adultos, el movimiento no existe. Hay muchas formas de participar, independientemente de si tu hijo o hija es parte del grupo.</p>
-
-        <div class="adultos-intro">
-          <div class="intro-card">
-            <p>Los adultos en el movimiento scout-guía cumplen roles fundamentales: desde la conducción directa de ramas hasta el apoyo logístico, administrativo y familiar. Cada rol tiene su valor y su lugar.</p>
+        <header class="adultos__header" v-reveal>
+          <div>
+            <span class="eyebrow">Adultos en el movimiento</span>
+            <h1 class="section-title">La aventura también<br>necesita <em>de vos.</em></h1>
           </div>
+          <p class="section-subtitle">Sin los adultos, el movimiento no existe. Hay muchas formas de participar, independientemente de si tu hijo o hija es parte del grupo.</p>
+        </header>
+        <div class="adultos__intro" v-reveal>
+          <span class="adultos__intro-mark" aria-hidden="true">↗</span>
+          <p>Los adultos en el movimiento scout-guía cumplen roles fundamentales: desde la conducción directa de ramas hasta el apoyo logístico, administrativo y familiar. <strong>Cada rol tiene su valor y su lugar.</strong></p>
         </div>
-
-        <div class="adultos-roles">
-          <div class="role-card role-card--padres">
+        <div class="adultos__roles">
+          <article class="role-card" v-reveal>
             <div class="role-card__header">
-              <span class="role-card__icon">👨‍👩‍👧</span>
-              <div>
-                <h2 class="role-card__title">Comité de Padres</h2>
-                <p class="role-card__subtitle">El corazón organizativo del grupo</p>
-              </div>
+              <span class="role-card__number" aria-hidden="true">01</span>
+              <span class="eyebrow">Acompañar desde la familia</span>
+              <h2>Comité de Padres</h2>
+              <p>El corazón organizativo del grupo</p>
             </div>
             <div class="role-card__body">
               <p>El Comité de Padres es el órgano que sostiene el funcionamiento del grupo desde el lado logístico, económico y de gestión. Está integrado por familiares de los miembros activos.</p>
-              <h4>¿Qué hace el Comité?</h4>
-              <ul>
-                <li v-for="t in comite" :key="t">{{ t }}</li>
-              </ul>
-              <div class="role-card__cta">
-                <a href="/#contacto" class="btn-role">Quiero participar →</a>
-              </div>
+              <h3>¿Qué hace el Comité?</h3>
+              <ul><li v-for="tarea in comite" :key="tarea">{{ tarea }}</li></ul>
+              <RouterLink to="/#contacto" class="btn btn-secondary">Quiero participar <span aria-hidden="true">↗</span></RouterLink>
             </div>
-          </div>
-
-          <div class="role-card role-card--voluntarios">
+          </article>
+          <article class="role-card role-card--educadores" v-reveal="100">
             <div class="role-card__header">
-              <span class="role-card__icon">🌿</span>
-              <div>
-                <h2 class="role-card__title">Voluntaria o Educador</h2>
-                <p class="role-card__subtitle">Conducción directa de ramas</p>
-              </div>
+              <span class="role-card__number" aria-hidden="true">02</span>
+              <span class="eyebrow">Acompañar el crecimiento</span>
+              <h2>Voluntaria o Educador</h2>
+              <p>Conducción directa de ramas</p>
             </div>
             <div class="role-card__body">
               <p>Los educadores o dirigentes son adultos que conducen directamente las actividades de una rama. No es necesario haber sido scout o guía de chico/a para serlo de adulto.</p>
-              <h4>¿Qué implica?</h4>
-              <ul>
-                <li v-for="t in voluntario" :key="t">{{ t }}</li>
-              </ul>
-              <div class="role-card__cta">
-                <a href="/#contacto" class="btn-role btn-role--guia">Quiero ser dirigente →</a>
-              </div>
+              <h3>¿Qué implica?</h3>
+              <ul><li v-for="tarea in voluntario" :key="tarea">{{ tarea }}</li></ul>
+              <RouterLink to="/#contacto" class="btn btn-primary">Quiero ser dirigente <span aria-hidden="true">↗</span></RouterLink>
             </div>
-          </div>
+          </article>
         </div>
-
-        <div class="adultos-faq">
-          <h2 class="section-title" style="margin-bottom: 2rem;">Preguntas frecuentes</h2>
+        <section class="adultos__faq" aria-labelledby="faq-heading" v-reveal>
+          <div class="adultos__faq-heading">
+            <span class="eyebrow">Antes de dar el primer paso</span>
+            <h2 id="faq-heading" class="section-title">Todas las ganas.<br><em>Menos dudas.</em></h2>
+          </div>
           <div class="faq-list">
-            <div v-for="faq in faqs" :key="faq.q" class="faq-item">
-              <button class="faq-btn" @click="toggle(faq.q)">
-                <span>{{ faq.q }}</span>
-                <span class="faq-arrow" :class="{ 'faq-arrow--open': open === faq.q }">↓</span>
-              </button>
+            <article v-for="(faq, index) in faqs" :key="faq.q" class="faq-item">
+              <h3>
+                <button :id="'faq-button-' + index" class="faq-btn" :aria-expanded="open === index" :aria-controls="'faq-answer-' + index" @click="toggle(index)">
+                  <span>{{ faq.q }}</span>
+                  <span class="faq-arrow" :class="{ 'faq-arrow--open': open === index }" aria-hidden="true">+</span>
+                </button>
+              </h3>
               <Transition name="faq">
-                <p v-if="open === faq.q" class="faq-answer">{{ faq.a }}</p>
+                <div v-show="open === index" :id="'faq-answer-' + index" role="region" :aria-labelledby="'faq-button-' + index" class="faq-answer"><p>{{ faq.a }}</p></div>
               </Transition>
-            </div>
+            </article>
           </div>
-        </div>
+        </section>
       </div>
     </section>
   </div>
@@ -77,7 +71,7 @@
 import { ref } from 'vue'
 
 const open = ref(null)
-function toggle(q) { open.value = open.value === q ? null : q }
+function toggle(index) { open.value = open.value === index ? null : index }
 
 const comite = [
   'Administración de fondos y cuotas',
@@ -86,7 +80,6 @@ const comite = [
   'Comunicación con las familias',
   'Apoyo en campamentos y salidas',
 ]
-
 const voluntario = [
   'Conducción semanal de actividades de rama',
   'Planificación del programa anual',
@@ -94,7 +87,6 @@ const voluntario = [
   'Participación en eventos nacionales',
   'Acompañamiento en el crecimiento de los jóvenes',
 ]
-
 const faqs = [
   { q: '¿Necesito haber sido scout/guía de chico/a?', a: 'No. Muchos de nuestros mejores dirigentes llegaron al movimiento de adultos. Lo importante es el compromiso y las ganas de acompañar a los jóvenes.' },
   { q: '¿Cuánto tiempo implica ser parte del Comité?', a: 'Depende del rol. Algunos roles demandan una reunión mensual y participación esporádica en eventos. Otros tienen mayor dedicación. Siempre se adapta a las posibilidades de cada persona.' },
@@ -104,174 +96,50 @@ const faqs = [
 </script>
 
 <style scoped>
-.adultos-intro {
-  margin-bottom: 3rem;
+.adultos { padding-top: var(--header-height, 80px); }
+.adultos__header { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: end; margin-bottom: 3rem; }
+.adultos__header .eyebrow, .adultos__faq-heading .eyebrow { margin-bottom: 1.25rem; }
+.section-title em { color: var(--color-primary); font-weight: 500; }
+.adultos__intro { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 2rem; padding: 1.75rem 2rem; border-block: 1px solid var(--color-border); }
+.adultos__intro p { max-width: 850px; color: var(--color-text-muted); line-height: 1.8; }
+.adultos__intro strong { color: var(--color-text); font-weight: 600; }
+.adultos__intro-mark { font-size: 2.5rem; color: var(--color-primary); }
+.adultos__roles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.role-card { border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-paper); }
+.role-card__header { position: relative; padding: 2rem; border-bottom: 1px solid var(--color-border); background: #eeeee5; }
+.role-card--educadores .role-card__header { background: #eee7f3; }
+.role-card__number { position: absolute; right: 1.5rem; top: 1rem; font-family: var(--font-display); font-size: 3rem; color: rgb(41 37 53 / 12%); }
+.role-card__header .eyebrow { position: relative; font-size: .67rem; }
+.role-card__header h2 { margin-top: 1.5rem; font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 500; }
+.role-card__header p { color: var(--color-text-muted); margin-top: .4rem; font-size: .88rem; }
+.role-card__body { padding: 2rem; }
+.role-card__body > p { color: var(--color-text-muted); font-size: .95rem; line-height: 1.8; }
+.role-card__body h3 { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; margin: 1.75rem 0 1rem; }
+.role-card__body ul { list-style: none; display: grid; gap: .7rem; margin-bottom: 2rem; }
+.role-card__body li { display: flex; align-items: baseline; gap: .65rem; font-size: .9rem; color: var(--color-text-muted); }
+.role-card__body li::before { content: '↗'; color: var(--color-primary); }
+.adultos__faq { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; margin-top: 6rem; }
+.adultos__faq .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+.faq-list { border-top: 1px solid var(--color-border); }
+.faq-item { border-bottom: 1px solid var(--color-border); }
+.faq-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.4rem .25rem; text-align: left; font-size: .95rem; font-weight: 600; color: var(--color-text); }
+.faq-btn:hover { color: var(--color-primary); }
+.faq-arrow { color: var(--color-primary); font-size: 1.5rem; font-weight: 400; transition: transform 220ms var(--ease-out); }
+.faq-arrow--open { transform: rotate(45deg); }
+.faq-answer { padding: 0 2.5rem 1.5rem .25rem; font-size: .9rem; color: var(--color-text-muted); line-height: 1.8; }
+.faq-enter-active, .faq-leave-active { transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out); }
+.faq-enter-from, .faq-leave-to { opacity: 0; transform: translateY(-6px); }
+@media (max-width: 800px) {
+  .adultos__header, .adultos__faq { grid-template-columns: 1fr; gap: 1.75rem; }
+  .adultos__roles { grid-template-columns: 1fr; }
+  .adultos__faq { margin-top: 4rem; }
 }
-
-.intro-card {
-  padding: 32px 40px;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border-left: 4px solid var(--color-accent-gold);
+@media (max-width: 480px) {
+  .adultos__intro { padding: 1.25rem 0; gap: 1rem; align-items: start; }
+  .role-card__header, .role-card__body { padding: 1.5rem; }
 }
-
-.intro-card p {
-  font-size: 1.05rem;
-  color: var(--color-white-dim);
-  line-height: 1.8;
-}
-
-.adultos-roles {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 5rem;
-}
-
-.role-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.role-card__header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 28px 32px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.role-card__icon { font-size: 2.5rem; }
-
-.role-card__title {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.role-card--padres .role-card__title { color: var(--color-scout-yellow); }
-.role-card--voluntarios .role-card__title { color: var(--color-guia-accent); }
-
-.role-card__subtitle {
-  font-size: 0.82rem;
-  color: var(--color-white-dim);
-  margin-top: 2px;
-}
-
-.role-card__body {
-  padding: 28px 32px;
-}
-
-.role-card__body > p {
-  font-size: 0.95rem;
-  color: var(--color-white-dim);
-  line-height: 1.7;
-  margin-bottom: 24px;
-}
-
-.role-card__body h4 {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-white-dim);
-  margin-bottom: 12px;
-}
-
-.role-card__body ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-
-.role-card__body li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: var(--color-white-dim);
-}
-
-.role-card__body li::before {
-  content: '✓';
-  color: var(--color-accent-gold);
-  font-weight: 700;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-
-.btn-role {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 24px;
-  background: var(--color-scout-primary);
-  color: var(--color-white);
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: background var(--transition-fast);
-}
-
-.btn-role:hover { background: var(--color-scout-light); }
-
-.btn-role--guia { background: var(--color-guia-primary); }
-.btn-role--guia:hover { background: var(--color-guia-light); }
-
-/* FAQ */
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.faq-item {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255,255,255,0.06);
-  overflow: hidden;
-}
-
-.faq-btn {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  text-align: left;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-white);
-  font-family: var(--font-body);
-  gap: 16px;
-  transition: background var(--transition-fast);
-}
-
-.faq-btn:hover { background: rgba(255,255,255,0.04); }
-
-.faq-arrow {
-  font-size: 1rem;
-  transition: transform var(--transition-normal);
-  color: var(--color-accent-gold);
-  flex-shrink: 0;
-}
-
-.faq-arrow--open { transform: rotate(180deg); }
-
-.faq-answer {
-  padding: 0 24px 20px;
-  font-size: 0.9rem;
-  color: var(--color-white-dim);
-  line-height: 1.7;
-}
-
-.faq-enter-active, .faq-leave-active { transition: all 0.25s ease; }
-.faq-enter-from, .faq-leave-to { opacity: 0; transform: translateY(-8px); }
-
-@media (max-width: 768px) {
-  .adultos-roles { grid-template-columns: 1fr; }
+@media (prefers-reduced-motion: reduce) {
+  .faq-enter-active, .faq-leave-active, .faq-arrow { transition: none; }
+  .faq-enter-from, .faq-leave-to { transform: none; }
 }
 </style>
