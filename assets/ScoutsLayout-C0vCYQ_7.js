@@ -1,0 +1,1 @@
+import{M as e}from"./MovementShell-qWNuUbVo.js";import{i as o,o as t}from"./index-qlxvcSo3.js";const m={__name:"ScoutsLayout",setup(a){return(r,s)=>(t(),o(e,{movement:"scouts",label:"Scouts de Argentina"}))}};export{m as default};

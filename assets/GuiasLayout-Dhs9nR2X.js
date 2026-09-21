@@ -1,0 +1,1 @@
+import{M as e}from"./MovementShell-qWNuUbVo.js";import{i as a,o}from"./index-qlxvcSo3.js";const i={__name:"GuiasLayout",setup(t){return(s,r)=>(o(),a(e,{movement:"guias",label:"Asociación Guías Argentinas"}))}};export{i as default};
